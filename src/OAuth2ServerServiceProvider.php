@@ -123,12 +123,12 @@ class OAuth2ServerServiceProvider extends ServiceProvider
                 $grant = $app->make($grantParams['class']);
                 $grant->setAccessTokenTTL($grantParams['access_token_ttl']);
 
-                //if (array_key_exists('callback', $grantParams)) {
-                //    list($className, $method) = array_pad(explode('@', $grantParams['callback']), 2, 'verify');
-                //    $verifier = $app->make($className);
-                //    $grant->setVerifyCredentialsCallback([$verifier, $method]);
-                //}
-                dd($config['grant_types'], $grantIdentifier, $grantParams, $grantParams['callback']);
+                if (array_key_exists('callback', $grantParams)) {
+                    list($className, $method) = array_pad(explode('@', $grantParams['callback']->class), 2, 'verify');
+                    $verifier = $app->make($className);
+                    $grant->setVerifyCredentialsCallback([$verifier, $method]);
+                }
+                //dd($config['grant_types'], $grantIdentifier, $grantParams, $grantParams['callback']);
                 if (array_key_exists('auth_token_ttl', $grantParams)) {
                     $grant->setAuthTokenTTL($grantParams['auth_token_ttl']);
                 }
