@@ -27,6 +27,7 @@ use LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware;
 use LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware;
 use LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware;
 use LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware;
+use Log;
 
 /**
  * This is the oauth2 server service provider class.
@@ -124,7 +125,7 @@ class OAuth2ServerServiceProvider extends ServiceProvider
 
                 if (array_key_exists('callback', $grantParams)) {
                     list($className, $method) = array_pad(explode('@', $grantParams['callback']), 2, 'verify');
-                    dd($grantParams['callback']);
+                    Log::info('grantParams', ['grant' => $grantParams['callback']);
                     $verifier = $app->make($className);
                     $grant->setVerifyCredentialsCallback([$verifier, $method]);
                 }
