@@ -128,7 +128,7 @@ class OAuth2ServerServiceProvider extends ServiceProvider
                 //    $verifier = $app->make($className);
                 //    $grant->setVerifyCredentialsCallback([$verifier, $method]);
                 //}
-                dd($grantParams['callback']);
+                dd($config['grant_types'], $grantIdentifier, $grantParams, $grantParams['callback']);
                 if (array_key_exists('auth_token_ttl', $grantParams)) {
                     $grant->setAuthTokenTTL($grantParams['auth_token_ttl']);
                 }
